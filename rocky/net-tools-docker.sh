@@ -1,0 +1,81 @@
+#!/bin/bash
+
+set -e
+
+SRPM="net-tools-2.0-0.64.20160912git.el9.src.rpm"
+URL="https://dl.rockylinux.org/pub/rocky/9.8/BaseOS/source/tree/Packages/n/$SRPM"
+
+echo "=== Installing build tools ==="
+
+dnf install -y \
+    rpm-build \
+    rpmdevtools \
+    dnf-plugins-core \
+    wget
+
+echo "=== Enabling CRB repository ==="
+
+dnf config-manager --set-enabled crb
+
+dnf makecache
+
+echo "=== Setting up RPM build tree ==="
+
+rpmdev-setuptree
+
+SRPM="net-tools-2.0-0.64.20160912git.el9.src.rpm"
+URL="https://dl.rockylinux.org/pub/rocky/9.8/BaseOS/source/tree/Packages/n/$SRPM"
+
+echo "=== Installing build dependencies ==="
+
+dnf install -y \
+    rpm-build \
+    rpmdevtools \
+    dnf-plugins-core \
+    wget
+
+echo "=== Setting up RPM build tree ==="
+
+rpmdev-setuptree
+
+cd ~/rpmbuild/SRPMS
+
+echo "=== Downloading source RPM ==="
+
+wget -N "$URL"
+
+echo "=== Installing build dependencies from SRPM ==="
+
+dnf builddep -y "$SRPM"
+
+echo "=== Building RPM ==="
+
+rpmbuild --rebuild "$SRPM"
+
+RPM=$(find ~/rpmbuild/RPMS -type f -name "net-tools-[0-9]*.rpm" | head -1)
+
+echo "=== Built RPM ==="
+echo "$RPM"
+
+echo "=== Installing net-tools ==="
+
+dnf install -y "$RPM"
+
+echo "=== Testing ifconfig ==="
+
+ifconfig
+
+echo "=== ifconfig test successful ==="
+
+echo "=== Removing net-tools ==="
+
+dnf remove -y net-tools
+
+echo "=== Verifying removal ==="
+
+if rpm -q net-tools >/dev/null 2>&1; then
+    echo "ERROR: net-tools is still installed"
+    exit 1
+else
+    echo "SUCCESS: net-tools was removed"
+fi
