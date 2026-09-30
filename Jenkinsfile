@@ -109,7 +109,7 @@ pipeline {
                 '''
                 archiveArtifacts artifacts: 'artifacts/*',
                                 fingerprint: true
-            }
+           }
         }
     }
 }
