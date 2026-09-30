@@ -40,8 +40,9 @@ pipeline {
                                 sh '''
                                     docker build -t rocky-net-tools-builder:9 ./rocky
                                     docker run --rm \
-                                      -v /home/jenkins/artifacts/rpm:/artifacts \
-                                      rocky-net-tools-builder:9 
+                                        -e BUILD_NUMBER="$BUILD_NUMBER" \
+                                        -v /home/jenkins/artifacts:/artifacts \
+                                        rocky-net-tools-builder:9 
                                 '''
                             }
                         }

@@ -60,6 +60,17 @@ else
     exit 1
 fi
 
+RELEASE="1.0.${BUILD_NUMBER}"
+
+echo "=== Copying tested DEB to artifacts directory ==="
+
+mkdir -p "/artifacts/${RELEASE}"
+
+cp "$DEB" "/artifacts/${RELEASE}/"
+
+echo "Artifact:"
+ls -lh "/artifacts/${RELEASE}/"
+
 echo "=== Removing net-tools ==="
 
 apt remove -y "$PACKAGE"

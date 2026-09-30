@@ -67,6 +67,17 @@ ifconfig
 
 echo "=== ifconfig test successful ==="
 
+RELEASE="1.0.${BUILD_NUMBER}"
+
+echo "=== Copying tested RPM to artifacts directory ==="
+
+mkdir -p "/artifacts/${RELEASE}"
+
+cp "$RPM" "/artifacts/${RELEASE}/"
+
+echo "Artifact:"
+ls -lh "/artifacts/${RELEASE}/"
+
 echo "=== Removing net-tools ==="
 
 dnf remove -y net-tools
