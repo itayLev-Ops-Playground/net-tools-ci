@@ -67,19 +67,18 @@ ifconfig
 
 echo "=== ifconfig test successful ==="
 
-RELEASE="1.0.${BUILD_NUMBER}"
+echo "=== Copying RPM artifact ==="
 
-echo "=== Copying tested RPM to artifacts directory ==="
+ARTIFACT_DIR="/artifacts/build_${BUILD_NUMBER}"
 
-mkdir -p "/artifacts/build_$BUILD_NUMBER"
+mkdir -p "$ARTIFACT_DIR"
+cp "$RPM" "$ARTIFACT_DIR/"
 
-cp "$RPM" "/artifacts/build_$BUILD_NUMBER/"
-
-chown "$JENKINS_UID:$JENKINS_GID" \
-    "/artifacts/build_$BUILD_NUMBER/$(basename "$RPM")"
+echo "Artifact copied to:"
+echo "$ARTIFACT_DIR/$(basename "$RPM")"
 
 echo "Artifact:"
-ls -lh "/artifacts/build_$BUILD_NUMBER/"
+ls -lh "/artifacts/build_${BUILD_NUMBER}/"
 
 echo "=== Removing net-tools ==="
 

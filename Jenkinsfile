@@ -41,9 +41,7 @@ pipeline {
                                     docker build -t rocky-net-tools-builder:9 ./rocky
                                     docker run --rm \
                                         -e BUILD_NUMBER="$BUILD_NUMBER" \
-                                        -e JENKINS_UID="$(id -u)" \
-                                        -e JENKINS_GID="$(id -g)" \
-                                        -v /home/jenkins/artifacts:/artifacts \
+                                        -v /mnt/artifacts:/artifacts \
                                         rocky-net-tools-builder:9 
                                 '''
                             }
@@ -87,9 +85,7 @@ pipeline {
                                     docker build -t ubuntu-net-tools-builder:24.04 ./ubuntu
                                     docker run --rm \
                                         -e BUILD_NUMBER="$BUILD_NUMBER" \
-                                        -e JENKINS_UID="$(id -u)" \
-                                        -e JENKINS_GID="$(id -g)" \
-                                        -v /home/jenkins/artifacts/deb:/artifacts \
+                                        -v /mnt/artifacts:/artifacts \
                                         ubuntu-net-tools-builder:24.04
                                 '''
                             }

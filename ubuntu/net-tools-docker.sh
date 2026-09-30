@@ -60,19 +60,21 @@ else
     exit 1
 fi
 
-RELEASE="1.0.${BUILD_NUMBER}"
+echo "=== Copying DEB artifact ==="
 
-echo "=== Copying tested DEB to artifacts directory ==="
+ARTIFACT_DIR="/artifacts/build_${BUILD_NUMBER}"
 
-mkdir -p "/artifacts/build_$BUILD_NUMBER"
+mkdir -p "$ARTIFACT_DIR"
 
-cp "$DEB" "/artifacts/build_$BUILD_NUMBER/"
+cp "$DEB" "$ARTIFACT_DIR/"
 
-chown "$JENKINS_UID:$JENKINS_GID" \
-    "/artifacts/build_$BUILD_NUMBER/$(basename "$DEB")"
+echo "Artifact copied to:"
+
+echo "$ARTIFACT_DIR/$(basename "$DEB")"
 
 echo "Artifact:"
-ls -lh "/artifacts/build_$BUILD_NUMBER/"
+
+ls -lh "$ARTIFACT_DIR/"
 
 echo "=== Removing net-tools ==="
 
