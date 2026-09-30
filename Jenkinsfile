@@ -93,6 +93,8 @@ pipeline {
                     }
                 }
             }
+        }
+        
         stage('Archive Artifacts') {
             agent { label 'linux' }
 
