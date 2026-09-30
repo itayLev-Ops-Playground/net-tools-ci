@@ -71,12 +71,12 @@ RELEASE="1.0.${BUILD_NUMBER}"
 
 echo "=== Copying tested RPM to artifacts directory ==="
 
-mkdir -p "/artifacts/${RELEASE}"
+mkdir -p "/artifacts/build/$BUILD_NUMBER"
 
-cp "$RPM" "/artifacts/${RELEASE}/"
+cp "$RPM" "/artifacts/build/$BUILD_NUMBER/"
 
 echo "Artifact:"
-ls -lh "/artifacts/${RELEASE}/"
+ls -lh "/artifacts/build/$BUILD_NUMBER/"
 
 echo "=== Removing net-tools ==="
 

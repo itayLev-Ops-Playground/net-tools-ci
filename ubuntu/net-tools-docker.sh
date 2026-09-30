@@ -64,12 +64,12 @@ RELEASE="1.0.${BUILD_NUMBER}"
 
 echo "=== Copying tested DEB to artifacts directory ==="
 
-mkdir -p "/artifacts/${RELEASE}"
+mkdir -p "/artifacts/build/$BUILD_NUMBER"
 
-cp "$DEB" "/artifacts/${RELEASE}/"
+cp "$DEB" "/artifacts/build/$BUILD_NUMBER/"
 
 echo "Artifact:"
-ls -lh "/artifacts/${RELEASE}/"
+ls -lh "/artifacts/build/$BUILD_NUMBER/"
 
 echo "=== Removing net-tools ==="
 
