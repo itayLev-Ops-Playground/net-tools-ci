@@ -93,6 +93,23 @@ pipeline {
                     }
                 }
             }
+        stage('Archive Artifacts') {
+            agent { label 'linux' }
+
+            steps {
+                sh '''
+                    echo "=== Preparing Jenkins Artifacts ==="
+
+                    mkdir -p artifacts
+
+                    cp -v /mnt/artifacts/build_$BUILD_NUMBER/* artifacts/
+
+                    echo "=== Artifacts to Archive ==="
+                    ls -lh artifacts/
+                '''
+                archiveArtifacts artifacts: 'artifacts/*',
+                                fingerprint: true
+            }
         }
     }
 }
