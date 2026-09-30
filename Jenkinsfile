@@ -39,7 +39,9 @@ pipeline {
                             steps {
                                 sh '''
                                     docker build -t rocky-net-tools-builder:9 ./rocky
-                                    docker run --rm rocky-net-tools-builder:9
+                                    docker run --rm \
+                                      -v /home/jenkins/artifacts/rpm:/artifacts \
+                                      rocky-net-tools-builder:9 
                                 '''
                             }
                         }
@@ -80,7 +82,9 @@ pipeline {
                             steps {
                                 sh '''
                                     docker build -t ubuntu-net-tools-builder:24.04 ./ubuntu
-                                    docker run --rm ubuntu-net-tools-builder:24.04
+                                    docker run --rm \
+                                      -v /home/jenkins/artifacts/deb:/artifacts \
+                                      ubuntu-net-tools-builder:24.04
                                 '''
                             }
                         }
