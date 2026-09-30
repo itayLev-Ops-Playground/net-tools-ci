@@ -68,7 +68,7 @@ mkdir -p "/artifacts/build_$BUILD_NUMBER"
 
 cp "$DEB" "/artifacts/build_$BUILD_NUMBER/"
 
-chown jenkins:jenkins \
+chown "$JENKINS_UID:$JENKINS_GID" \
     "/artifacts/build_$BUILD_NUMBER/$(basename "$DEB")"
 
 echo "Artifact:"
