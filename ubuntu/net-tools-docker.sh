@@ -64,12 +64,15 @@ RELEASE="1.0.${BUILD_NUMBER}"
 
 echo "=== Copying tested DEB to artifacts directory ==="
 
-mkdir -p "/artifacts/build/$BUILD_NUMBER"
+mkdir -p "/artifacts/build_$BUILD_NUMBER"
 
-cp "$DEB" "/artifacts/build/$BUILD_NUMBER/"
+cp "$DEB" "/artifacts/build_$BUILD_NUMBER/"
+
+chown jenkins:jenkins \
+    "/artifacts/build_$BUILD_NUMBER/$(basename "$DEB")"
 
 echo "Artifact:"
-ls -lh "/artifacts/build/$BUILD_NUMBER/"
+ls -lh "/artifacts/build_$BUILD_NUMBER/"
 
 echo "=== Removing net-tools ==="
 
