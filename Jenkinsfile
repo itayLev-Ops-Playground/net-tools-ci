@@ -1,5 +1,13 @@
 pipeline {
     agent none
+    Environment {
+        echo "=== Jenkins Environment ==="
+        echo "NODE_NAME=$NODE_NAME"
+        echo "NODE_LABELS=$NODE_LABELS"
+        echo "WORKSPACE=$WORKSPACE"
+        echo "BUILD_NUMBER=$BUILD_NUMBER"
+        echo "JOB_NAME=$JOB_NAME"       
+    }
 
     stages {
         stage('Build and Test') {
@@ -15,20 +23,12 @@ pipeline {
                             }
                         }
 
-                        stage('Environment') {
+                        stage('Rocky Environment') {
                             steps {
                                 sh '''
-                                    echo "=== Jenkins Environment ==="
-                                    echo "NODE_NAME=$NODE_NAME"
-                                    echo "NODE_LABELS=$NODE_LABELS"
-                                    echo "WORKSPACE=$WORKSPACE"
-                                    echo "BUILD_NUMBER=$BUILD_NUMBER"
-                                    echo "JOB_NAME=$JOB_NAME"
-
                                     echo "=== Linux Environment ==="
-                                    hostname
+                                    hostnamectl
                                     whoami
-                                    w
                                     pwd
                                     ls -l
                                 '''
@@ -72,7 +72,6 @@ pipeline {
                                     echo "=== Linux Environment ==="
                                     hostname
                                     whoami
-                                    w
                                     pwd
                                     ls -l
                                 '''
