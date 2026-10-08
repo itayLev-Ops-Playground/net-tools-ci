@@ -34,7 +34,7 @@ pipeline {
                             steps {
                                 sh '''
                                     docker build -t rocky-net-tools-builder:9 ./rocky
-                                    docker run d \
+                                    docker run -d \
                                         -e BUILD_NUMBER="$BUILD_NUMBER" \
                                         -v /mnt/artifacts:/artifacts \
                                         rocky-net-tools-builder:9 
@@ -105,7 +105,7 @@ pipeline {
             }       
         }
     }
-        
+
     post{
         success{
             echo "========= build completed successfully ========="
