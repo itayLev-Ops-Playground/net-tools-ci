@@ -92,3 +92,4 @@ if rpm -q net-tools >/dev/null 2>&1; then
 else
     echo "SUCCESS: net-tools was removed"
 fi
+TEST
