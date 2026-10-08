@@ -1,13 +1,5 @@
 pipeline {
     agent none
-    Environment {
-        echo "=== Jenkins Environment ==="
-        "NODE_NAME=$NODE_NAME"
-        "NODE_LABELS=$NODE_LABELS"
-        "WORKSPACE=$WORKSPACE"
-        "BUILD_NUMBER=$BUILD_NUMBER"
-        "JOB_NAME=$JOB_NAME"       
-    }
 
     stages {
         stage('Build and Test') {
@@ -23,9 +15,16 @@ pipeline {
                             }
                         }
 
-                        stage('Rocky Environment') {
+                        stage('Environment') {
                             steps {
                                 sh '''
+                                    echo "=== Printing Jenkins Environment ==="
+                                    echo "NODE_NAME=$NODE_NAME"
+                                    echo "NODE_LABELS=$NODE_LABELS"
+                                    echo "WORKSPACE=$WORKSPACE"
+                                    echo "BUILD_NUMBER=$BUILD_NUMBER"
+                                    echo "JOB_NAME=$JOB_NAME"
+
                                     echo "=== Linux Environment ==="
                                     hostnamectl
                                     whoami
@@ -62,7 +61,7 @@ pipeline {
                         stage('Environment') {
                             steps {
                                 sh '''
-                                    echo "=== Jenkins Environment ==="
+                                    echo "=== Printing Jenkins Environment ==="
                                     echo "NODE_NAME=$NODE_NAME"
                                     echo "NODE_LABELS=$NODE_LABELS"
                                     echo "WORKSPACE=$WORKSPACE"
@@ -70,7 +69,7 @@ pipeline {
                                     echo "JOB_NAME=$JOB_NAME"
 
                                     echo "=== Linux Environment ==="
-                                    hostname
+                                    hostnamectl
                                     whoami
                                     pwd
                                     ls -l
