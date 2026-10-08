@@ -1,13 +1,11 @@
 pipeline {
     agent none
         environment{
-        R_IMG_NAME = "rocky-1"
-        U_IMG_NAME = "ubuntu-1"
+        R_IMG_NAME = "rocky9"
+        U_IMG_NAME = "ubuntu24.04"
         IMG_TAG = "${BUILD_NUMBER}"
         R_IMAGE_FULL_NAME = "${R_IMG_NAME}:v0.${IMG_TAG}"
         U_IMAGE_FULL_NAME = "${U_IMG_NAME}:v0.${IMG_TAG}"
-        // CONTAINER_NAME = "app-1-container"
-        // TEST_PORT= "5050"
     }
     stages {
         stage('Build and Test') {
@@ -42,13 +40,18 @@ pipeline {
                         stage('Test') {
                             steps {
                                 sh '''
-                                    docker build -t rocky-net-tools-builder:9 ./rocky
+                                    docker build -t $R_IMAGE_FULL_NAME ./rocky
                                     docker run --rm \
                                         -e BUILD_NUMBER="$BUILD_NUMBER" \
                                         -v /mnt/artifacts:/artifacts \
-                                        rocky-net-tools-builder:9 
+                                        $R_IMAGE_FULL_NAME
                                 '''
                             }
+                        }
+                    }
+                    post {
+                        always{
+                            sh "docker rmi -f ${R_IMAGE_FULL_NAME}"
                         }
                     }
                 }
@@ -91,7 +94,7 @@ pipeline {
                             }
                         }
                     }
-                    post{
+                    post {
                         always{
                             sh "docker rmi -f ${U_IMAGE_FULL_NAME}"
                         }
@@ -121,10 +124,10 @@ pipeline {
     }
 
     post{
-        success{
+        success {
             echo "========= build completed successfully ========="
         }
-        failure{
+        failure {
             echo "========= build failed ========="
         }
     }
