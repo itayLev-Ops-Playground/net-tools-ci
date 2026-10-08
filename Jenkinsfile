@@ -34,7 +34,7 @@ pipeline {
                             steps {
                                 sh '''
                                     docker build -t rocky-net-tools-builder:9 ./rocky
-                                    docker run --rm \
+                                    docker run d \
                                         -e BUILD_NUMBER="$BUILD_NUMBER" \
                                         -v /mnt/artifacts:/artifacts \
                                         rocky-net-tools-builder:9 
@@ -74,7 +74,7 @@ pipeline {
                             steps {
                                 sh '''
                                     docker build -t ubuntu-net-tools-builder:24.04 ./ubuntu
-                                    docker run --rm \
+                                    docker run -d \
                                         -e BUILD_NUMBER="$BUILD_NUMBER" \
                                         -v /mnt/artifacts:/artifacts \
                                         ubuntu-net-tools-builder:24.04
@@ -102,7 +102,21 @@ pipeline {
                 '''
                 archiveArtifacts artifacts: 'artifacts/*',
                                 fingerprint: true
-           }
+            }       
         }
     }
+        
+    post{
+        success{
+            echo "========= build completed successfully ========="
+        }
+        failure{
+            echo "========= build failed ========="
+        }
+        always{
+            sh "docker rm -f ${CONTAINER_NAME}"
+            sh "docker rmi -f ${IMAGE_FULL_NAME}"
+        }
+  }
 }
+
