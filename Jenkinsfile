@@ -82,11 +82,11 @@ pipeline {
                         stage('Test') {
                             steps {
                                 sh '''
-                                    docker build -t ubuntu-net-tools-builder:24.04 ./ubuntu
+                                    docker build -t ${U_IMAGE_FULL_NAME} ./ubuntu
                                     docker run --rm \
                                         -e BUILD_NUMBER="$BUILD_NUMBER" \
                                         -v /mnt/artifacts:/artifacts \
-                                        ubuntu-net-tools-builder:24.04
+                                        ${U_IMAGE_FULL_NAME}
                                 '''
                             }
                         }
@@ -128,4 +128,4 @@ pipeline {
             echo "========= build failed ========="
         }
     }
-}
+
