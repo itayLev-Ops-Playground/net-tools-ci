@@ -1,5 +1,14 @@
 pipeline {
     agent none
+        environment{
+        R_IMG_NAME = "rocky-1"
+        U_IMG_NAME = "ubuntu-1"
+        IMG_TAG = "${BUILD_NUMBER}"
+        R_IMAGE_FULL_NAME = "${R_IMG_NAME}:v0.${IMG_TAG}"
+        U_IMAGE_FULL_NAME = "${U_IMG_NAME}:v0.${IMG_TAG}"
+        // CONTAINER_NAME = "app-1-container"
+        // TEST_PORT= "5050"
+    }
     stages {
         stage('Build and Test') {
             parallel {
@@ -82,6 +91,11 @@ pipeline {
                             }
                         }
                     }
+                    post{
+                        always{
+                            sh "docker rmi -f ${U_IMAGE_FULL_NAME}"
+                        }
+                   }
                 }
             }
         }
@@ -106,17 +120,12 @@ pipeline {
         }
     }
 
-//     post{
-//         success{
-//             echo "========= build completed successfully ========="
-//         }
-//         failure{
-//             echo "========= build failed ========="
-//         }
-//         always{
-//             sh "docker rm -f ${CONTAINER_NAME}"
-//             sh "docker rmi -f ${IMAGE_FULL_NAME}"
-//         }
-//   }
+    post{
+        success{
+            echo "========= build completed successfully ========="
+        }
+        failure{
+            echo "========= build failed ========="
+        }
+    }
 }
-
