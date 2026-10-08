@@ -1,5 +1,6 @@
 pipeline {
     agent none
+
     stages {
         stage('Build and Test') {
             parallel {
@@ -24,7 +25,10 @@ pipeline {
                                     echo "BUILD_NUMBER=$BUILD_NUMBER"
                                     echo "JOB_NAME=$JOB_NAME"
 
-                                    echo "=== scm Files Varification ==="
+                                    echo "=== Linux Environment ==="
+                                    hostnamectl
+                                    whoami
+                                    pwd
                                     ls -l
                                 '''
                             }
@@ -64,7 +68,10 @@ pipeline {
                                     echo "BUILD_NUMBER=$BUILD_NUMBER"
                                     echo "JOB_NAME=$JOB_NAME"
 
-                                    echo "=== scm Files Varification ==="
+                                    echo "=== Linux Environment ==="
+                                    hostnamectl
+                                    whoami
+                                    pwd
                                     ls -l
                                 '''
                             }
@@ -102,21 +109,7 @@ pipeline {
                 '''
                 archiveArtifacts artifacts: 'artifacts/*',
                                 fingerprint: true
-            }       
+           }
         }
     }
-
-//     post{
-//         success{
-//             echo "========= build completed successfully ========="
-//         }
-//         failure{
-//             echo "========= build failed ========="
-//         }
-//         always{
-//             sh "docker rm -f ${CONTAINER_NAME}"
-//             sh "docker rmi -f ${IMAGE_FULL_NAME}"
-//         }
-//   }
 }
-
