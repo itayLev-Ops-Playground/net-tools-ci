@@ -24,7 +24,7 @@ pipeline {
                                     echo "BUILD_NUMBER=$BUILD_NUMBER"
                                     echo "JOB_NAME=$JOB_NAME"
 
-                                    echo "=== Files Varification ==="
+                                    echo "=== scm Files Varification ==="
                                     ls -l
                                 '''
                             }
@@ -64,7 +64,7 @@ pipeline {
                                     echo "BUILD_NUMBER=$BUILD_NUMBER"
                                     echo "JOB_NAME=$JOB_NAME"
 
-                                    echo "=== Files Varification ==="
+                                    echo "=== scm Files Varification ==="
                                     ls -l
                                 '''
                             }

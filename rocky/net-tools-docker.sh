@@ -2,10 +2,6 @@
 
 set -e
 
-echo "=== docker Environment ==="
-hostnamectl
-whoami
-
 SRPM="net-tools-2.0-0.64.20160912git.el9.src.rpm"
 URL="https://dl.rockylinux.org/pub/rocky/9.8/BaseOS/source/tree/Packages/n/$SRPM"
 
