@@ -2,7 +2,7 @@
 
 set -e
 
-echo "=== Linux Environment ==="
+echo "=== docker Environment ==="
 hostnamectl
 whoami
 

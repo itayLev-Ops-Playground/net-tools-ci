@@ -1,6 +1,5 @@
 pipeline {
     agent none
-
     stages {
         stage('Build and Test') {
             parallel {
@@ -25,10 +24,7 @@ pipeline {
                                     echo "BUILD_NUMBER=$BUILD_NUMBER"
                                     echo "JOB_NAME=$JOB_NAME"
 
-                                    echo "=== Linux Environment ==="
-                                    hostnamectl
-                                    whoami
-                                    pwd
+                                    echo "=== Files Varification ==="
                                     ls -l
                                 '''
                             }
@@ -68,10 +64,7 @@ pipeline {
                                     echo "BUILD_NUMBER=$BUILD_NUMBER"
                                     echo "JOB_NAME=$JOB_NAME"
 
-                                    echo "=== Linux Environment ==="
-                                    hostnamectl
-                                    whoami
-                                    pwd
+                                    echo "=== Files Varification ==="
                                     ls -l
                                 '''
                             }
